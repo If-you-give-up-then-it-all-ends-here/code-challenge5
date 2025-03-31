@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="img/favicon-32x32.png">
+    <title>code-challenge5</title>
+    <link rel="stylesheet" href="css/reset.css">
+    <link rel="stylesheet" href="css/index.css">
+    <link rel="stylesheet" href="css/base_sp.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,400;0,700;1,400;1,800&display=swap" rel="stylesheet">
+  </head>
+</head>
+<body class="body">
+  <main class="main">
+    <section class="flex birthday">
+      <div class="birthday-day">
+        <label for="day" class="js_label">DAY</label>
+        <input type="text" id="day" placeholder="DD" class="js_input-day js_input">
+        <p class="error-text hidden"></p>
+      </div>
+      <div class="birthday-month">
+        <label for="month" class="js_label">MONTH</label>
+        <input type="text" id="month" placeholder="MM" class="js_input-month js_input">
+        <p class="error-text hidden"></p>
+      </div>
+      <div class="birthday-year">
+        <label for="year" class="js_label">YEAR</label>
+        <input type="text" id="year" placeholder="YYYY" class="js_input-year js_input">
+        <p class="error-text hidden"></p>
+      </div>
+    </section>
+
+    <div class="section-divider">
+      <div class="circle" id="circle"><img src="img/icon-arrow.svg" alt="arrow"></div>
+      <hr>
+    </div>
+
+    <section class="result">
+      <p class="result-years"><span id="displayYears">--</span>years</p>
+      <p class="result-months"><span id="displayMonths">--</span>months</p>
+      <p class="result-days"><span id="displayDays">--</span>days</p>
+    </section>
+    
+
+  </main>
+
+  <script src="js/error.js"></script>
+  
+</body>
+</html>
