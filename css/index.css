@@ -1,0 +1,124 @@
+
+:root {
+    --primary-color-light_gray: hsl(0, 0%, 86%);
+    --primary-color-smokey_gray: hsl(0, 1%, 44%);
+    --primary-color-purple: hsl(259, 100%, 65%);
+    --primary-color-red: hsl(0, 100%, 67%);
+}
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+*{
+    font-family: "Poppins", sans-serif;
+}
+.body {
+    background-color: var(--primary-color-light_gray);
+    align-items: center;
+    position: relative;
+    min-height: 100vh;
+}
+.main {
+    position: absolute;
+    background-color: #fff;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 60%;
+    padding: 3%;
+    border-radius: 20px 20px 120px 20px;
+}
+.flex {
+    display: flex;
+}
+.hidden {
+    display: none;
+}
+label, input {
+    display: block;
+}
+.birthday {
+    width: 80%;
+    gap: 5%;
+}
+label {
+    margin-bottom: 10px;
+    color: var(--primary-color-smokey_gray);
+    font-weight: 600;
+    letter-spacing: 2px;
+}
+input {
+    height: 50px;
+    border: solid 1px var(--primary-color-light_gray);
+    border-radius: 5px;
+    font-size: 20px;
+    font-weight: 600;
+    width: 100%;
+    padding: 10%;
+}
+.label-active {
+    color: var(--primary-color-red);
+}
+.input-active {
+    border: solid 1px var(--primary-color-red);
+}
+input:hover {
+    border-color: var(--primary-color-purple);
+}
+input:focus {
+    outline: none;
+    border-color: var(--primary-color-purple);
+}
+.error-text {
+    color: var(--primary-color-red);
+    font-size: 14px;
+    font-style: italic;
+    margin-top: 10px;
+}
+
+
+
+
+
+.section-divider {
+    position: relative;
+    height: 100px;
+    text-align: center;
+    justify-content: center;
+    display: flex;
+    align-items: center;
+}
+.circle {
+    position: absolute;
+    right: 0;
+    width: 46px;
+    /* margin-top: -3%; */
+    width: 55px;
+    height: 55px;
+    background-color: var(--primary-color-purple);
+    border-radius: 50%;
+}
+.circle:hover {
+    background-color: #333;
+}
+.circle img {
+    width: 55%;
+    margin: 23%;
+}
+hr {
+    margin: 0;
+    width: 100%;
+}
+
+
+
+.result {
+    font-weight: 800;
+    font-size: 60px;
+    font-style: italic;
+    line-height: 1.2;
+}
+.result span {
+    color: var(--primary-color-purple);
+}
