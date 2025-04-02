@@ -7,16 +7,29 @@ const today = new Date();
 const year = today.getFullYear();  // 年 
 const month = today.getMonth() + 1; // 月 (0始まりなので+1)
 const day = today.getDate(); // 日
+const non = "--";
+let isValid = true;
 
+
+const displayYear = (resultYear)=>{
+    document.getElementById("displayYears").textContent = resultYear;
+};
+const displayMonth = (resultMonth)=>{
+    document.getElementById("displayMonths").textContent = resultMonth;
+};
+const displayDay = (resultDay)=>{
+    document.getElementById("displayDays").textContent = resultDay;
+};
 
 
 circle.addEventListener("click", ()=>{
 
     // クリックするたびに表示を初期化する
-    const non = "--";
     displayDay(non);
     displayMonth(non);
     displayYear(non);
+    console.log(non);
+    console.log(displayDay(non));
 
     const monthValue = Number(document.getElementById("month").value);
     const dayValue = Number(document.getElementById("day").value);
@@ -24,12 +37,8 @@ circle.addEventListener("click", ()=>{
 
     //30日までの月
     const monthsWith30Days = [4, 6, 9, 11];
+    
 
-    //閏年の計算
-    const  isLeapYear = (year) => {
-        return (year % 4 === 0 && year % 100 !== 0) || (year % 400 === 0);
-    }
-    let isValid = true;
     inputs.forEach((input, index)=>{
         const value = input.value.trim();
         
@@ -50,45 +59,13 @@ circle.addEventListener("click", ()=>{
         return
     };
 
-    if (dayValue > 31) {
-        displayError(0 , "Must be a valid day");
-        isValid = false;
-    } else {
-        displayNon(0);
-    };
-    if (monthValue > 12) {
-        displayError(1 , "Must be a valid month");
-        isValid = false;
-    } else {
-        displayNon(1);
-    };
-    if (yearValue > year) {
-        displayError(2 , "Must be in the past");
-        isValid = false;
-    } else {
-        displayNon(2);
-    };
-    if (dayValue > day && monthValue == month && yearValue == year){
-        displayError(0 , "Must be a valid day");
-        isValid = false;
-    };
-    if ((monthValue > month && yearValue == year) || (dayValue > day && monthValue > month && yearValue == year)){
-        displayError(1 , "Must be a valid month");
-        isValid = false;
-    };
-    if (monthsWith30Days.includes(monthValue) && dayValue > 30) {
-        displayError(0 , "Must be a valid day");
-        isValid = false;
-    };
-    // うるう年を含む2月のチェック
-    if (monthValue === 2) {
-        const maxDay = isLeapYear(yearValue) ? 29 : 28;
-        if (dayValue > maxDay) {
-            displayError(0 , "Must be a valid day");
-            isValid = false;
-        }
-    };
+
+    validation(monthValue, dayValue, yearValue, monthsWith30Days);
+    console.log(isValid);
+
     if (isValid) {
+        
+        console.log("error")
         const todaysDay = dayCaluculation(monthValue, dayValue);
         const [todaysMonth, resultMonth] = monthCaluculation(dayValue, todaysDay, monthValue);
         yearsCaluculation(todaysMonth, resultMonth, yearValue);
@@ -96,10 +73,37 @@ circle.addEventListener("click", ()=>{
     
 });
 
+const validation = (monthValue, dayValue, yearValue, monthsWith30Days)=>{
 
-
-
-
+    //年が今年より大きい際
+    if (yearValue > year) {
+        displayError(2 , "Must be in the past");
+        isValid = false;
+    } else {
+        displayNon(2);
+    };
+    //日付が31より大きい、または、年と月が今年、今月で日付が未来の時、またはうるう年を含む2月のチェック
+    if ((dayValue > 31) || (dayValue > day && monthValue == month && yearValue == year) || (monthValue === 2 && dayValue > (isLeapYear(yearValue) ? 29 : 28)) ){
+        console.log("error1")
+        displayError(0 , "Must be a valid day");
+        isValid = false;
+        
+    };
+    //月が12より大きい且つ、今年且つ月が未来、もしくは、今年且つ月も日付も未来の時
+    if ((monthValue > 12) || (monthValue > month && yearValue == year) || (dayValue > day && monthValue > month && yearValue == year)){
+        displayError(1 , "Must be a valid month");
+        isValid = false;
+        console.log("error2")
+    };
+    //月の日付が30日までの月且つ日付が30より大きい時
+    if (monthsWith30Days.includes(monthValue) && dayValue > 30) {
+        displayError(0 , "Must be a valid day");
+        isValid = false;
+        console.log("error3")
+        
+    };
+    
+};
 
 
 //今年の誕生月が何日だったかを計測
@@ -112,7 +116,10 @@ const getDaysInMonth = (monthValue) => {
     return lastDay;
 }
 
-
+    //閏年の計算
+    const  isLeapYear = (year) => {
+        return (year % 4 === 0 && year % 100 !== 0) || (year % 400 === 0);
+    }
 
 //日の計算
 const dayCaluculation = (monthValue, dayValue)=>{
@@ -130,8 +137,6 @@ const dayCaluculation = (monthValue, dayValue)=>{
     displayDay(resultDay);
     return todaysDay;
 };
-
-
 
 
 //月の計算
@@ -162,7 +167,6 @@ const monthCaluculation = (dayValue, todaysDay, monthValue)=>{
 };
 
 
-
 //年の計算
 const yearsCaluculation = (todaysMonth, resultMonth, yearValue)=>{
     let todaysYear = 0;
@@ -182,16 +186,6 @@ const yearsCaluculation = (todaysMonth, resultMonth, yearValue)=>{
 };
 
 
-const displayYear = (resultYear)=>{
-    document.getElementById("displayYears").textContent = resultYear;
-};
-const displayMonth = (resultMonth)=>{
-    document.getElementById("displayMonths").textContent = resultMonth;
-};
-const displayDay = (resultDay)=>{
-    document.getElementById("displayDays").textContent = resultDay;
-};
-
 //エラー表示を無くす
 const displayNon = (index)=> {
     labels[index].classList.remove("label-active");
@@ -206,3 +200,4 @@ const displayError = (index, txt) => {
     errorTexts[index].classList.remove("hidden");
     errorTexts[index].textContent = txt;
 };
+
